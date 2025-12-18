@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>สมัครใช้งาน | Concept-X Office</title>
+  <title>ระบบบริการประชาชนสำหรับ รพ.สต.</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --blue-900:#0B3C8A;
+    :root {
+      /* 70% cool blue + 30% light green */
+      --blue-900:#0B3A86;
       --blue-800:#0E4AA6;
       --blue-700:#1463D6;
       --blue-600:#1E7BF2;
-      --blue-500:#2F8CFF;
-      --sky-200:#D9ECFF;
-      --bg:#F6F8FC;
+      --blue-500:#3A98FF;
+
+      --mint-500:#34D399;
+      --mint-200:#CFFAEA;
+      --mint-100:#E9FFF7;
+
+      --bg:#F6FAFF;
       --card:#FFFFFF;
       --text:#0F172A;
       --muted:#64748B;
       --border:#E2E8F0;
-      --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+      --shadow: 0 12px 34px rgba(2, 6, 23, .10);
       --radius: 18px;
     }
 
@@ -31,697 +36,738 @@
     body{
       margin:0;
       font-family:"Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(1100px 520px at 15% -10%, rgba(58,152,255,.22), rgba(246,250,255,0) 60%),
+        radial-gradient(980px 520px at 90% 0%, rgba(52,211,153,.14), rgba(246,250,255,0) 55%),
+        var(--bg);
     }
 
-    .page{
-      min-height:100%;
-      display:flex;
-      flex-direction:column;
-    }
-
-    /* Topbar */
     .topbar{
       position: sticky;
-      top:0;
-      z-index:10;
-      background: rgba(246,248,252,.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(226,232,240,.8);
+      top: 0;
+      z-index: 20;
+      background: rgba(246,250,255,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(226,232,240,.9);
     }
     .topbar-inner{
-      max-width: 1120px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 14px 16px;
+      padding: 12px 16px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
-      min-width: 220px;
+      gap: 12px;
+      min-width: 280px;
     }
     .logo{
-      width:40px;height:40px;border-radius:12px;
-      background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
-      display:grid;place-items:center;
-      box-shadow: 0 10px 18px rgba(30,123,242,.25);
-      flex:0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(226,232,240,.95);
+      box-shadow: 0 10px 18px rgba(30,123,242,.14);
+      display:grid;
+      place-items:center;
       overflow:hidden;
+      flex: 0 0 auto;
     }
-    .brand-title{
-      line-height:1.1;
-    }
-    .brand-title b{ display:block; font-size:14px; }
-    .brand-title span{ display:block; font-size:12px; color:var(--muted); }
+    .logo img{ width: 30px; height:auto; }
+    .brand-title{ line-height: 1.15; }
+    .brand-title b{ display:block; font-size: 14px; }
+    .brand-title span{ display:block; font-size: 12px; color: var(--muted); }
 
-    .step-meta{
+    .status{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap: 12px;
       justify-content:flex-end;
-      min-width: 220px;
+      min-width: 280px;
     }
-    .step-text{
-      font-size:12px;
-      color:var(--muted);
-      white-space:nowrap;
+    .pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(30,123,242,.10);
+      border: 1px solid rgba(30,123,242,.18);
+      color: var(--blue-800);
+      white-space: nowrap;
     }
     .progress{
-      width: 220px;
+      width: 240px;
       height: 10px;
-      background: #EAF2FF;
       border-radius: 999px;
+      background: rgba(30,123,242,.10);
+      border: 1px solid rgba(30,123,242,.12);
       overflow:hidden;
-      border:1px solid rgba(20,99,214,.12);
     }
     .progress > div{
-      height:100%;
-      width: 50%;
+      width: 0%;
+      height: 100%;
       border-radius: 999px;
-      background: linear-gradient(90deg, #A7F3D0, #60A5FA, #1D4ED8);
+      background: linear-gradient(90deg, rgba(52,211,153,.95), rgba(58,152,255,.95), rgba(11,58,134,.95));
       transition: width .25s ease;
     }
 
-    /* Main */
-    .container{
-      width:100%;
-      max-width:1120px;
-      margin: 18px auto 40px;
+    .layout{
+      max-width: 1200px;
+      margin: 14px auto 28px;
       padding: 0 16px;
       display:grid;
-      gap:16px;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+      align-items: stretch;
     }
 
-    /* Hero / banner */
-    .hero{
-      background: linear-gradient(90deg, rgba(167,243,208,.9), rgba(96,165,250,.88), rgba(29,78,216,.95));
-      border-radius: 20px;
-      padding: 16px;
-      overflow:hidden;
-      position:relative;
-      box-shadow: var(--shadow);
-    }
-    .hero::after{
-      content:"";
-      position:absolute;
-      right:-80px; top:-80px;
-      width:220px; height:220px;
-      background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
-      transform: rotate(20deg);
-    }
-
-    .hero-card{
-      max-width: 540px;
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,255,255,.65);
-      border-radius: 18px;
-      padding: 14px 14px;
+    .notice{
+      grid-column: 1 / -1;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(226,232,240,.95);
+      border-left: 4px solid rgba(52,211,153,.75);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
       display:flex;
-      gap:12px;
+      gap: 10px;
       align-items:flex-start;
     }
-    .hero-icon{
-      width:34px;height:34px;border-radius:999px;
-      background: rgba(20,99,214,.12);
-      display:grid;place-items:center;
-      flex:0 0 auto;
+    .notice .icon{
+      width: 32px; height: 32px;
+      border-radius: 999px;
+      display:grid; place-items:center;
+      background: rgba(52,211,153,.14);
+      border: 1px solid rgba(52,211,153,.22);
+      flex: 0 0 auto;
+      font-weight: 700;
+      color: #0f766e;
     }
-    .hero-icon svg{ width:18px;height:18px; }
-    .hero-card h4{
-      margin:0;
-      font-size:14px;
-      color: var(--blue-900);
-    }
-    .hero-card p{
-      margin:6px 0 0;
-      font-size:13px;
-      color: #0f172a;
-    }
+    .notice b{ color: var(--blue-900); }
+    .notice p{ margin:0; font-size: 12.5px; color: #1f2937; line-height: 1.45; }
 
-    /* Form card */
-    .card{
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
+    .panel{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(226,232,240,.95);
+      border-radius: 22px;
       box-shadow: var(--shadow);
       overflow:hidden;
-    }
-    .card-head{
-      padding: 14px 16px;
+      position: sticky;
+      top: 78px;
+      height: calc(100vh - 120px);
+      min-height: 520px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid var(--border);
-      gap:12px;
+      flex-direction:column;
     }
-    .card-head h3{
-      margin:0;
-      font-size:15px;
+    .panel-top{
+      padding: 18px 16px 12px;
+      border-bottom: 1px solid rgba(226,232,240,.9);
+      background: linear-gradient(180deg, rgba(233,255,247,.55), rgba(246,250,255,1));
+    }
+    .panel-center{
+      padding: 18px 16px;
       display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .badge{
-      font-size:11px;
-      padding:4px 10px;
-      border-radius:999px;
-      background: rgba(30,123,242,.12);
-      color: var(--blue-800);
-      border: 1px solid rgba(30,123,242,.18);
-    }
-
-    .card-body{ padding: 16px; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
       gap: 14px;
-    }
-
-    .field{ grid-column: span 12; }
-    .col-6{ grid-column: span 6; }
-    .col-4{ grid-column: span 4; }
-    .col-8{ grid-column: span 8; }
-
-    @media (max-width: 860px){
-      .progress{ width: 160px; }
-      .col-6, .col-4, .col-8{ grid-column: span 12; }
-      .brand{ min-width:auto; }
-      .step-meta{ min-width:auto; }
-    }
-
-    label{
-      display:flex;
       align-items:center;
-      gap:6px;
-      font-size:13px;
-      margin-bottom:7px;
-      color:#0f172a;
     }
-    .req{ color:#ef4444; font-weight:700; }
-
-    .control{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 12px;
-      font-size:14px;
-      outline:none;
-      transition: border .2s ease, box-shadow .2s ease;
-      background:#fff;
-    }
-    .control:focus{
-      border-color: rgba(30,123,242,.65);
-      box-shadow: 0 0 0 4px rgba(30,123,242,.12);
-    }
-    .hint{
-      margin-top:6px;
-      font-size:12px;
-      color: var(--muted);
-    }
-
-    /* Radio pills */
-    .radio-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .radio{
-      flex:1 1 200px;
-      border:1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      user-select:none;
-      transition: border .2s ease, background .2s ease;
-      background:#fff;
-      min-width: 180px;
-    }
-    .radio input{ accent-color: var(--blue-700); }
-    .radio.active{
-      border-color: rgba(20,99,214,.55);
-      background: rgba(30,123,242,.08);
-    }
-
-    /* Chips */
-    .chips{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:8px;
-    }
-    .chip{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
+    .botmark{
+      width: 52px; height: 52px;
       border-radius: 999px;
-      background: rgba(20,99,214,.10);
-      border:1px solid rgba(20,99,214,.18);
-      font-size: 13px;
-      color: var(--blue-900);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(52,211,153,.35), rgba(52,211,153,0) 55%),
+        radial-gradient(circle at 70% 40%, rgba(58,152,255,.35), rgba(58,152,255,0) 60%),
+        #fff;
+      border: 1px solid rgba(226,232,240,.95);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
+      flex:0 0 auto;
     }
-    .chip button{
-      border:0;
-      background: transparent;
-      cursor:pointer;
-      color: var(--blue-900);
+    .botmark span{
+      width: 30px; height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(58,152,255,.18), rgba(52,211,153,.16));
+      display:grid; place-items:center;
+      border: 1px solid rgba(226,232,240,.9);
       font-size: 16px;
-      line-height: 1;
-      padding: 0 2px;
     }
-    .chip-muted{
-      background: rgba(100,116,139,.10);
-      border:1px solid rgba(100,116,139,.18);
-      color:#334155;
-    }
+    .panel-title b{ display:block; font-size: 15px; color: var(--blue-900); }
+    .panel-title p{ margin: 4px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
 
-    /* Footer actions */
-    .actions{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      padding: 16px;
-      border-top: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(246,248,252,.65), rgba(246,248,252,1));
+    .panel-list{ padding: 0 16px 16px; overflow:auto; }
+    .check{
+      display:flex; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(58,152,255,.06);
+      border: 1px solid rgba(58,152,255,.12);
+      margin-top: 10px;
     }
+    .check .dot{
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(52,211,153,.18);
+      border: 1px solid rgba(52,211,153,.24);
+      display:grid; place-items:center;
+      flex: 0 0 auto;
+      color: #0f766e;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .check b{ font-size: 13px; }
+    .check span{ display:block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .chat-shell{
+      background: rgba(255,255,255,.80);
+      border: 1px solid rgba(226,232,240,.95);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 680px;
+    }
+    .chat-head{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(226,232,240,.9);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      background: linear-gradient(180deg, rgba(246,250,255,.70), rgba(246,250,255,1));
+    }
+    .chat-head .left{ display:flex; align-items:center; gap: 10px; min-width: 240px; }
+    .chip{
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(52,211,153,.14);
+      border: 1px solid rgba(52,211,153,.22);
+      color: #0f766e;
+      white-space: nowrap;
+    }
+    .chat-head h3{ margin:0; font-size: 14px; color: var(--blue-900); }
+    .chat-head .sub{ font-size: 12px; color: var(--muted); }
+
     .btn{
       border:0;
       border-radius: 999px;
-      padding: 11px 16px;
-      font-size: 14px;
+      padding: 10px 14px;
+      font-size: 13px;
       cursor:pointer;
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      transition: transform .05s ease, opacity .2s ease, box-shadow .2s ease;
+      gap: 8px;
       user-select:none;
+      transition: transform .05s ease, opacity .2s ease;
     }
     .btn:active{ transform: translateY(1px); }
-
-    .btn-ghost{
-      background: transparent;
-      color: var(--muted);
-    }
+    .btn-ghost{ background: transparent; color: var(--muted); }
     .btn-ghost:hover{ background: rgba(100,116,139,.08); }
 
-    .btn-primary{
-      background: linear-gradient(90deg, var(--blue-700), var(--blue-600));
-      color:#fff;
-      box-shadow: 0 10px 18px rgba(20,99,214,.22);
+    .chat{
+      flex:1;
+      padding: 16px;
+      overflow:auto;
+      background:
+        radial-gradient(900px 420px at 10% 0%, rgba(58,152,255,.10), rgba(255,255,255,0) 55%),
+        radial-gradient(900px 420px at 90% 0%, rgba(52,211,153,.08), rgba(255,255,255,0) 55%),
+        #fff;
     }
-    .btn-primary:hover{ opacity:.95; }
+    .row{ display:flex; margin: 10px 0; }
+    .row.bot{ justify-content:flex-start; }
+    .row.me{ justify-content:flex-end; }
 
-    .right{ margin-left:auto; }
+    .bubble{
+      max-width: min(720px, 92%);
+      padding: 11px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(226,232,240,.92);
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
+      line-height: 1.45;
+      white-space: pre-line;
+    }
+    .bubble.me{
+      background: linear-gradient(135deg, rgba(20,99,214,.95), rgba(58,152,255,.95));
+      color:#fff;
+      border: 1px solid rgba(20,99,214,.22);
+      box-shadow: 0 12px 22px rgba(20,99,214,.18);
+    }
 
-    /* Step visibility */
-    .step{ display:none; }
-    .step.active{ display:block; }
-
-    .divider-title{
-      margin: 6px 0 12px;
-      font-size: 13px;
-      color: #0f172a;
-      font-weight: 600;
+    .meta{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap: 10px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
     }
-    .divider-title::after{
-      content:"";
-      height:1px;
-      background: var(--border);
-      flex:1;
+    .bubble.me .meta{ color: rgba(255,255,255,.85); }
+
+    .avatar{
+      width: 24px; height: 24px;
+      border-radius: 999px;
+      background: rgba(58,152,255,.10);
+      border: 1px solid rgba(58,152,255,.18);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      font-size: 12px;
+    }
+    .bubble.me .avatar{ background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.24); }
+
+    .quick{ display:flex; gap: 8px; flex-wrap:wrap; margin-top: 10px; }
+    .qbtn{
+      border: 1px solid rgba(58,152,255,.18);
+      background: rgba(58,152,255,.10);
+      color: var(--blue-900);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .05s ease, background .2s ease, border-color .2s ease;
+    }
+    .qbtn:hover{ border-color: rgba(58,152,255,.32); background: rgba(58,152,255,.14); }
+    .qbtn:active{ transform: translateY(1px); }
+    .qbtn.mint{ border-color: rgba(52,211,153,.22); background: rgba(52,211,153,.14); color:#0f766e; }
+
+    .composer{
+      border-top: 1px solid rgba(226,232,240,.9);
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(246,250,255,.65), rgba(246,250,255,1));
+      display:flex;
+      gap: 10px;
+      align-items:flex-end;
+      flex-wrap:wrap;
+    }
+    .input{
+      flex: 1 1 360px;
+      min-width: 220px;
+      border: 1px solid rgba(226,232,240,.95);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background:#fff;
+      outline:none;
+      font-size: 14px;
+      transition: box-shadow .2s ease, border-color .2s ease;
+    }
+    .input:focus{ border-color: rgba(58,152,255,.55); box-shadow: 0 0 0 4px rgba(58,152,255,.12); }
+    .input[disabled]{ background: rgba(226,232,240,.35); }
+
+    .btn-primary{
+      background: linear-gradient(90deg, rgba(52,211,153,.95), rgba(58,152,255,.95));
+      color:#0b1220;
+      font-weight: 600;
     }
 
-    .tiny-link{
-      font-size:12px;
-      color: var(--blue-800);
-      text-decoration:none;
-    }
-    .tiny-link:hover{ text-decoration:underline; }
-
-    .error{
-      display:none;
-      margin-top:8px;
-      color:#b91c1c;
-      font-size:12px;
-    }
+    .error{ width:100%; color:#b91c1c; font-size: 12px; display:none; }
     .error.show{ display:block; }
+
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      .panel{ position: relative; top: 0; height: auto; }
+      .status{ min-width:auto; }
+      .brand{ min-width:auto; }
+      .progress{ width: 160px; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="page">
-
-    <!-- TOP BAR -->
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="logo" aria-label="logo" style="background:#fff;">
-            <img src="data:image/png;base64,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" alt="Concept X Logo" style="width:28px;height:auto;" />
-          </div>
-          <div class="brand-title">
-            <b>Concept-X Office</b>
-            <span>สมัครใช้งานระบบบริการประชาชนสำหรับ รพ.สต.</span>
-          </div>
-        </div>
-
-        <div class="step-meta">
-          <div class="step-text"><span id="stepText">1 จาก 2</span></div>
-          <div class="progress" aria-label="progress"><div id="progressBar"></div></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo"><img src="data:image/png;base64,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" alt="Logo"/></div>
+        <div class="brand-title">
+          <b>ระบบบริการประชาชนสำหรับ รพ.สต.</b>
+          <span>ChatBot ถามอาการ • สรุปข้อมูลก่อนส่ง</span>
         </div>
       </div>
+
+      <div class="status">
+        <span class="pill" id="stepText">เริ่มต้น</span>
+        <div class="progress" aria-label="progress"><div id="progressBar"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div class="notice" role="note" aria-label="disclaimer">
+      <div class="icon">i</div>
+      <p>
+        <b>ข้อควรทราบ:</b> ระบบนี้เป็น AI สำหรับการประเมินอาการเบื้องต้นจากข้อมูลที่คุณให้เท่านั้น
+        <u>ไม่ใช่การวินิจฉัยโรค</u> หากมีอาการรุนแรง/ฉุกเฉิน โปรดติดต่อแพทย์หรือโทร <b>1669</b> ทันที
+      </p>
     </div>
 
-    <div class="container">
-
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-card">
-          <div class="hero-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" fill="rgba(20,99,214,.15)"/>
-              <path d="M11 7h2v7h-2V7Zm0 8h2v2h-2v-2Z" fill="rgba(11,60,138,.85)"/>
-            </svg>
+    <aside class="panel">
+      <div class="panel-top">
+        <div class="panel-center">
+          <div class="botmark"><span>🤖</span></div>
+          <div class="panel-title">
+            <b>ประเมินอาการป่วย</b>
+            <p>ตอบคำถามผ่านแชท ระบบจะสรุปข้อมูลให้ตรวจสอบก่อนส่ง</p>
           </div>
+        </div>
+      </div>
+      <div class="panel-list">
+        <div class="check"><div class="dot">1</div><div><b>ข้อมูลพื้นฐาน</b><span>ชื่อ-นามสกุล • วันเกิด • เพศ • เบอร์โทร</span></div></div>
+        <div class="check"><div class="dot">2</div><div><b>อาการปัจจุบัน</b><span>อาการหลัก • ระยะเวลา • ความรุนแรง</span></div></div>
+        <div class="check"><div class="dot">3</div><div><b>สุขภาพเพิ่มเติม</b><span>โรคประจำตัว • ยาที่ใช้อยู่ • แพ้ยา/อาหาร</span></div></div>
+        <div class="check"><div class="dot">4</div><div><b>สรุปและยืนยัน</b><span>ตรวจสอบความถูกต้องก่อนส่งข้อมูล</span></div></div>
+      </div>
+    </aside>
+
+    <section class="chat-shell" aria-label="chatbot">
+      <div class="chat-head">
+        <div class="left">
+          <span class="chip" id="sectionChip">เริ่มต้น</span>
           <div>
-            <h4>Smart</h4>
-            <p>กรอกข้อมูลให้ครบถ้วน เพื่อช่วยประเมินความเสี่ยงและดูแลสุขภาพได้แม่นยำขึ้น</p>
+            <h3>Smart Care Chat</h3>
+            <div class="sub" id="sectionSub">ถาม-ตอบทีละข้อ (พิมพ์หรือกดปุ่ม)</div>
           </div>
         </div>
+        <button class="btn btn-ghost" type="button" id="btnReset">เริ่มใหม่</button>
       </div>
 
-      <!-- FORM CARD -->
-      <div class="card">
-        <div class="card-head">
-          <h3>
-            <span class="badge" id="sectionBadge">ข้อมูลส่วนตัว</span>
-            <span id="sectionTitle">ระบุข้อมูลส่วนตัว</span>
-          </h3>
-          <a class="tiny-link" href="javascript:void(0)" id="helpLink">คู่มือการกรอก</a>
-        </div>
+      <div class="chat" id="chat"></div>
 
-        <form id="regForm" novalidate>
-          <div class="card-body">
-
-            <!-- STEP 1: PERSONAL -->
-            <section class="step active" id="step1">
-
-              <div class="grid">
-                <div class="field col-6">
-                  <label>ชื่อ <span class="req">*</span></label>
-                  <input class="control" name="firstName" placeholder="กรุณากรอกชื่อ" required />
-                  <div class="error" data-err="firstName">กรุณากรอกชื่อ</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>นามสกุล <span class="req">*</span></label>
-                  <input class="control" name="lastName" placeholder="กรุณากรอกนามสกุล" required />
-                  <div class="error" data-err="lastName">กรุณากรอกนามสกุล</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
-                  <input class="control" name="phone" inputmode="numeric" placeholder="เช่น 08x-xxx-xxxx" required />
-                  <div class="hint">แนะนำรูปแบบ: 0xx-xxx-xxxx</div>
-                  <div class="error" data-err="phone">กรุณากรอกเบอร์โทรศัพท์</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>เพศกำเนิด <span class="req">*</span></label>
-                  <div class="radio-row" role="radiogroup" aria-label="gender">
-                    <label class="radio" id="malePill">
-                      <input type="radio" name="gender" value="male" required />
-                      เพศชาย
-                    </label>
-                    <label class="radio" id="femalePill">
-                      <input type="radio" name="gender" value="female" required />
-                      เพศหญิง
-                    </label>
-                  </div>
-                  <div class="error" data-err="gender">กรุณาเลือกเพศ</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>วัน / เดือน / ปี เกิด <span class="req">*</span></label>
-                  <input class="control" type="date" name="birthDate" required />
-                  <div class="error" data-err="birthDate">กรุณาเลือกวัน/เดือน/ปี เกิด</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>กรุ๊ปเลือด <span class="req">*</span></label>
-                  <select class="control" name="blood" required>
-                    <option value="">เลือกกรุ๊ปเลือด</option>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>AB</option>
-                    <option>O</option>
-                    <option>ไม่ทราบ</option>
-                  </select>
-                  <div class="error" data-err="blood">กรุณาเลือกกรุ๊ปเลือด</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>น้ำหนัก (กก.) <span class="req">*</span></label>
-                  <input class="control" name="weight" inputmode="decimal" placeholder="ระบุน้ำหนัก" required />
-                  <div class="error" data-err="weight">กรุณากรอกน้ำหนัก</div>
-                </div>
-
-                <div class="field col-6">
-                  <label>ส่วนสูง (ซม.) <span class="req">*</span></label>
-                  <input class="control" name="height" inputmode="decimal" placeholder="ระบุส่วนสูง" required />
-                  <div class="error" data-err="height">กรุณากรอกส่วนสูง</div>
-                </div>
-              </div>
-            </section>
-
-            <!-- STEP 2: HEALTH -->
-            <section class="step" id="step2">
-
-              <div class="divider-title">ข้อมูลสุขภาพ</div>
-
-              <div class="grid">
-                <div class="field col-8">
-                  <label>โรคประจำตัว (ถ้ามี)</label>
-                  <input class="control" id="diseaseInput" placeholder="พิมพ์ชื่อโรค แล้วกด Enter เช่น เบาหวาน, ความดัน" />
-                  <div class="hint">กด Enter เพื่อเพิ่มเป็นแท็ก (รองรับหลายรายการ)</div>
-
-                  <div class="chips" id="diseaseChips">
-                    <div class="chip chip-muted" id="noDiseaseChip">
-                      ไม่มีโรคประจำตัว
-                      <button type="button" title="ลบ" aria-label="remove">×</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field col-4">
-                  <label>วิธีกรอก</label>
-                  <div class="hint" style="margin-top:0">
-                    - ถ้าไม่มีโรค: คง “ไม่มีโรคประจำตัว” ไว้ได้<br/>
-                    - ถ้ามีโรค: เพิ่มโรค แล้ว “ไม่มีโรคประจำตัว” จะถูกเอาออกอัตโนมัติ
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label>ยาที่ใช้อยู่ (ถ้ามี)</label>
-                  <input class="control" name="meds" maxlength="200"
-                         placeholder="ระบุยาที่ใช้อยู่ เช่น ยาความดัน, ยาลดไขมัน" />
-                  <div class="hint">ระบุได้ไม่เกิน 200 ตัวอักษร</div>
-                </div>
-              </div>
-            </section>
-
-          </div>
-
-          <div class="actions">
-            <button class="btn btn-ghost" type="button" id="btnBack">ย้อนกลับ</button>
-            <button class="btn btn-primary right" type="button" id="btnNext">
-              ต่อไป
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        </form>
+      <div class="composer">
+        <input class="input" id="input" placeholder="พิมพ์คำตอบ..." autocomplete="off" />
+        <button class="btn btn-primary" id="btnSend" type="button">ส่ง ➤</button>
+        <div class="error" id="err">กรุณากรอกคำตอบให้ถูกต้อง</div>
       </div>
+    </section>
+  </main>
 
-    </div>
-  </div>
+<script>
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('input');
+  const btnSend = document.getElementById('btnSend');
+  const err = document.getElementById('err');
+  const btnReset = document.getElementById('btnReset');
+  const sectionChip = document.getElementById('sectionChip');
+  const sectionSub = document.getElementById('sectionSub');
+  const stepText = document.getElementById('stepText');
+  const progressBar = document.getElementById('progressBar');
 
-  <script>
-    const stepText = document.getElementById('stepText');
-    const progressBar = document.getElementById('progressBar');
-    const sectionBadge = document.getElementById('sectionBadge');
-    const sectionTitle = document.getElementById('sectionTitle');
+  const state = {
+    firstName:'', lastName:'', phone:'', gender:'', birthDate:'',
+    symptom:'', duration:'', severity:'',
+    diseases:[], meds:'', allergy:''
+  };
 
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
+  const steps = [
+    { section:'ข้อมูลพื้นฐาน', progress:8,
+      ask:'สวัสดีค่ะ 👋\nฉันคือ Smart Care Chat จะช่วยประเมินอาการเบื้องต้นค่ะ\n\nเริ่มจาก “ชื่อ” ของคุณคืออะไรคะ?',
+      type:'text', validate:v=>v.trim().length>0, save:v=>state.firstName=v.trim()
+    },
+    { section:'ข้อมูลพื้นฐาน', progress:16,
+      ask:()=>`ขอบคุณค่ะ ${esc(state.firstName)} 😊\n“นามสกุล” คืออะไรคะ?`,
+      type:'text', validate:v=>v.trim().length>0, save:v=>state.lastName=v.trim()
+    },
+    { section:'ข้อมูลพื้นฐาน', progress:24,
+      ask:'เบอร์โทรศัพท์ที่ติดต่อได้คืออะไรคะ?\n(แนะนำรูปแบบ 0xx-xxx-xxxx)',
+      type:'phone', validate:v=>v.replace(/\D/g,'').length>=9, save:v=>state.phone=formatPhone(v)
+    },
+    { section:'ข้อมูลพื้นฐาน', progress:32,
+      ask:'เลือก “เพศกำเนิด” ของคุณค่ะ',
+      type:'choice',
+      choices:[{label:'เพศชาย',value:'male'},{label:'เพศหญิง',value:'female'}],
+      validate:v=>['male','female'].includes(v), save:v=>state.gender=v
+    },
+    { section:'ข้อมูลพื้นฐาน', progress:40,
+      ask:'วัน / เดือน / ปี เกิด ของคุณคือวันไหนคะ?',
+      type:'date', validate:v=>!!v, save:v=>state.birthDate=v
+    },
+    { section:'อาการปัจจุบัน', progress:52,
+      ask:'ตอนนี้ “มีอาการอะไร” เป็นหลักคะ?\nเช่น ไข้ ไอ เจ็บคอ ปวดท้อง ท้องเสีย ปวดหัว',
+      type:'text', validate:v=>v.trim().length>0, save:v=>state.symptom=v.trim()
+    },
+    { section:'อาการปัจจุบัน', progress:62,
+      ask:'อาการนี้เป็นมานานแค่ไหนแล้วคะ?',
+      type:'choice',
+      choices:[
+        {label:'น้อยกว่า 24 ชม.',value:'<24h'},
+        {label:'1-3 วัน',value:'1-3d'},
+        {label:'4-7 วัน',value:'4-7d'},
+        {label:'มากกว่า 1 สัปดาห์',value:'>1w'}
+      ],
+      validate:v=>['<24h','1-3d','4-7d','>1w'].includes(v), save:v=>state.duration=v
+    },
+    { section:'อาการปัจจุบัน', progress:72,
+      ask:'ความรุนแรงของอาการ (โดยรวม) เป็นระดับไหนคะ?',
+      type:'choice',
+      choices:[
+        {label:'เล็กน้อย',value:'mild'},
+        {label:'ปานกลาง',value:'moderate'},
+        {label:'รุนแรง',value:'severe'}
+      ],
+      validate:v=>['mild','moderate','severe'].includes(v), save:v=>state.severity=v
+    },
+    { section:'สุขภาพเพิ่มเติม', progress:82,
+      ask:'คุณมี “โรคประจำตัว” ไหมคะ?\nถ้ามี พิมพ์ชื่อโรคทีละรายการ แล้วกด Enter เพื่อเพิ่ม\nหรือกด “ไม่มีโรคประจำตัว”',
+      type:'disease', validate:v=>true, save:v=>{}
+    },
+    { section:'สุขภาพเพิ่มเติม', progress:90,
+      ask:'มียาที่ใช้อยู่เป็นประจำไหมคะ? (ถ้าไม่มีพิมพ์ “-”)',
+      type:'text', validate:v=>v.trim().length>0, save:v=>state.meds=(v.trim()==='-'?'':v.trim())
+    },
+    { section:'สุขภาพเพิ่มเติม', progress:95,
+      ask:'มีประวัติ “แพ้ยา/แพ้อาหาร” ไหมคะ? (ถ้าไม่มีพิมพ์ “-”)',
+      type:'text', validate:v=>v.trim().length>0, save:v=>state.allergy=(v.trim()==='-'?'':v.trim())
+    },
+    { section:'สรุปและยืนยัน', progress:100, ask:()=>summaryText(), type:'confirm' }
+  ];
 
-    const btnBack = document.getElementById('btnBack');
-    const btnNext = document.getElementById('btnNext');
+  let idx = 0;
 
-    const malePill = document.getElementById('malePill');
-    const femalePill = document.getElementById('femalePill');
+  function nowTime(){ const d=new Date(); return d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'}); }
+  function esc(str){ return String(str??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+  function scrollDown(){ chat.scrollTop = chat.scrollHeight; }
 
-    const form = document.getElementById('regForm');
-
-    let currentStep = 1;
-
-    function setStep(step){
-      currentStep = step;
-
-      step1.classList.toggle('active', step === 1);
-      step2.classList.toggle('active', step === 2);
-
-      stepText.textContent = step + " จาก 2";
-      progressBar.style.width = (step === 1 ? "50%" : "100%");
-
-      if(step === 1){
-        sectionBadge.textContent = "ข้อมูลส่วนตัว";
-        sectionTitle.textContent = "ระบุข้อมูลส่วนตัว";
-        btnBack.textContent = "ย้อนกลับ";
-        btnNext.innerHTML = 'ต่อไป <span aria-hidden="true">→</span>';
-      }else{
-        sectionBadge.textContent = "ข้อมูลสุขภาพ";
-        sectionTitle.textContent = "ระบุข้อมูลสุขภาพ";
-        btnBack.textContent = "ย้อนกลับ";
-        btnNext.innerHTML = 'ส่งข้อมูล <span aria-hidden="true">✓</span>';
-      }
-    }
-
-    function showError(name, show){
-      const el = document.querySelector(`[data-err="${name}"]`);
-      if(!el) return;
-      el.classList.toggle('show', !!show);
-    }
-
-    function validateStep1(){
-      let ok = true;
-      const firstName = form.elements['firstName'].value.trim();
-      const lastName = form.elements['lastName'].value.trim();
-      const phone = form.elements['phone'].value.trim();
-      const acknowledgeGender = form.elements['gender'].value;
-      const birthDate = form.elements['birthDate'].value;
-      const blood = form.elements['blood'].value;
-      const weight = form.elements['weight'].value.trim();
-      const height = form.elements['height'].value.trim();
-
-      showError('firstName', !firstName); ok = ok && !!firstName;
-      showError('lastName', !lastName); ok = ok && !!lastName;
-      showError('phone', !phone); ok = ok && !!phone;
-      showError('gender', !acknowledgeGender); ok = ok && !!acknowledgeGender;
-      showError('birthDate', !birthDate); ok = ok && !!birthDate;
-      showError('blood', !blood); ok = ok && !!blood;
-      showError('weight', !weight); ok = ok && !!weight;
-      showError('height', !height); ok = ok && !!height;
-
-      return ok;
-    }
-
-    // Gender pill highlight
-    form.addEventListener('change', (e)=>{
-      if(e.target.name === 'gender'){
-        malePill.classList.toggle('active', e.target.value === 'male');
-        femalePill.classList.toggle('active', e.target.value === 'female');
-        showError('gender', false);
-      }
+  function renderQuick(choices){
+    const chips = choices.map(c=>`<div class="qbtn ${c.mint?'mint':''}" data-choice="${c.value}" data-label="${esc(c.label)}">${esc(c.label)}</div>`).join('');
+    return `<div class="quick">${chips}</div>`;
+  }
+  function bindQuick(scope){
+    scope.querySelectorAll('[data-choice]').forEach(el=>{
+      el.addEventListener('click',()=>sendAnswer(el.dataset.choice,true,el.dataset.label));
     });
+  }
 
-    // Phone formatting simple
-    form.elements['phone'].addEventListener('input', (e)=>{
-      const raw = e.target.value.replace(/\D/g,'').slice(0,10);
-      let out = raw;
-      if(raw.length >= 4) out = raw.slice(0,3) + '-' + raw.slice(3);
-      if(raw.length >= 7) out = raw.slice(0,3) + '-' + raw.slice(3,6) + '-' + raw.slice(6);
-      e.target.value = out;
-      if(out.trim()) showError('phone', false);
-    });
+  function botBubble(text, quickChoices){
+    const row=document.createElement('div');
+    row.className='row bot';
+    row.innerHTML=`
+      <div class="bubble">
+        <div class="meta"><div class="avatar">🤖</div><span>Smart • ${nowTime()}</span></div>
+        <div>${text}</div>
+        ${quickChoices?renderQuick(quickChoices):''}
+      </div>`;
+    chat.appendChild(row); scrollDown(); bindQuick(row);
+  }
 
-    // Step buttons
-    btnBack.addEventListener('click', ()=>{
-      if(currentStep === 1){
-        alert('ย้อนกลับหน้าก่อนหน้า (ปรับได้ตามระบบจริง)');
-      }else{
-        setStep(1);
-      }
-    });
+  function meBubble(text){
+    const row=document.createElement('div');
+    row.className='row me';
+    row.innerHTML=`
+      <div class="bubble me">
+        <div class="meta"><div class="avatar">🙂</div><span>คุณ • ${nowTime()}</span></div>
+        <div>${esc(text)}</div>
+      </div>`;
+    chat.appendChild(row); scrollDown();
+  }
 
-    btnNext.addEventListener('click', ()=>{
-      if(currentStep === 1){
-        if(validateStep1()){
-          setStep(2);
-        }
-      }else{
-        const payload = Object.fromEntries(new FormData(form).entries());
-        payload.diseases = getDiseases();
-        alert("ส่งข้อมูลเรียบร้อย (ตัวอย่าง)\n\n" + JSON.stringify(payload, null, 2));
-      }
-    });
+  function formatPhone(v){
+    const raw=String(v).replace(/\D/g,'').slice(0,10);
+    let out=raw;
+    if(raw.length>=4) out=raw.slice(0,3)+'-'+raw.slice(3);
+    if(raw.length>=7) out=raw.slice(0,3)+'-'+raw.slice(3,6)+'-'+raw.slice(6);
+    return out;
+  }
 
-    // ===== Disease chips =====
-    const diseaseInput = document.getElementById('diseaseInput');
-    const diseaseChips = document.getElementById('diseaseChips');
-    const noDiseaseChip = document.getElementById('noDiseaseChip');
-    const diseases = new Set();
+  function setHeader(section, progress){
+    sectionChip.textContent = section;
+    stepText.textContent = section + ' • ข้อ ' + (Math.min(idx+1, steps.length)) + '/' + steps.length;
+    progressBar.style.width = (progress||0) + '%';
+    sectionSub.textContent =
+      section==='สรุปและยืนยัน' ? 'ตรวจสอบความถูกต้องก่อนส่งข้อมูล' :
+      (section==='สุขภาพเพิ่มเติม' ? 'โรคประจำตัว • ยาที่ใช้อยู่ • การแพ้' :
+      (section==='อาการปัจจุบัน' ? 'อาการ • ระยะเวลา • ความรุนแรง' : 'กรอกข้อมูลส่วนตัว'));
+  }
 
-    function renderNoDisease(){
-      const hasAny = diseases.size > 0;
-      noDiseaseChip.style.display = hasAny ? 'none' : 'flex';
-    }
+  function summaryText(){
+    const genderLabel = state.gender==='male'?'เพศชาย':(state.gender==='female'?'เพศหญิง':'-');
+    const durationLabel = ({'<24h':'น้อยกว่า 24 ชม.','1-3d':'1-3 วัน','4-7d':'4-7 วัน','>1w':'มากกว่า 1 สัปดาห์'})[state.duration]||'-';
+    const severityLabel = ({mild:'เล็กน้อย',moderate:'ปานกลาง',severe:'รุนแรง'})[state.severity]||'-';
+    const diseases = (state.diseases&&state.diseases.length)?state.diseases.join(', '):'ไม่มีโรคประจำตัว';
+    const meds = state.meds?state.meds:'-';
+    const allergy = state.allergy?state.allergy:'-';
 
-    function addDisease(name){
-      const v = (name || '').trim();
-      if(!v) return;
-      diseases.add(v);
-      renderNoDisease();
+    const t = `
+<b>สรุปข้อมูลที่คุณกรอก</b> ✅
+โปรดตรวจสอบว่าถูกต้องไหมคะ
 
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.value = v;
-      chip.innerHTML = `${escapeHtml(v)} <button type="button" aria-label="remove">×</button>`;
-      chip.querySelector('button').addEventListener('click', ()=>{
-        diseases.delete(v);
-        chip.remove();
-        renderNoDisease();
+• ชื่อ-นามสกุล: <b>${esc(state.firstName)} ${esc(state.lastName)}</b>
+• โทร: <b>${esc(state.phone)}</b>
+• เพศกำเนิด: <b>${esc(genderLabel)}</b>
+• วันเกิด: <b>${esc(state.birthDate)}</b>
+
+• อาการหลัก: <b>${esc(state.symptom)}</b>
+• ระยะเวลา: <b>${esc(durationLabel)}</b>
+• ความรุนแรง: <b>${esc(severityLabel)}</b>
+
+• โรคประจำตัว: <b>${esc(diseases)}</b>
+• ยาที่ใช้อยู่: <b>${esc(meds)}</b>
+• แพ้ยา/อาหาร: <b>${esc(allergy)}</b>
+
+ต้องการ “ส่งข้อมูล” ไหมคะ?`;
+    return t.trim().replaceAll('\n','<br>');
+  }
+
+  function renderDiseaseBubble(){
+    const existing=document.getElementById('disease-bubble');
+    if(existing) existing.remove();
+
+    const row=document.createElement('div');
+    row.className='row bot';
+    row.id='disease-bubble';
+
+    const list = (state.diseases&&state.diseases.length)
+      ? state.diseases.map(d=>`<div class="qbtn mint" data-remove="${esc(d)}">✕ ${esc(d)}</div>`).join('')
+      : `<div class="qbtn mint" style="cursor:default">ไม่มีโรคประจำตัว</div>`;
+
+    row.innerHTML=`
+      <div class="bubble">
+        <div><b>รายการโรคประจำตัว</b></div>
+        <div class="quick" style="margin-top:8px">${list}</div>
+        <div style="margin-top:8px;color:#64748B;font-size:12px">พิมพ์โรคแล้วกด Enter เพื่อเพิ่ม • คลิกโรคเพื่อลบ</div>
+      </div>`;
+    chat.appendChild(row); scrollDown();
+
+    row.querySelectorAll('[data-remove]').forEach(el=>{
+      el.addEventListener('click',()=>{
+        const name=el.getAttribute('data-remove');
+        state.diseases = state.diseases.filter(x=>x!==name);
+        renderDiseaseBubble();
       });
-      diseaseChips.appendChild(chip);
-    }
+    });
+  }
 
-    function getDiseases(){
-      return Array.from(diseases);
-    }
+  function askCurrent(){
+    err.classList.remove('show');
+    const s=steps[idx];
+    setHeader(s.section, s.progress);
 
-    function escapeHtml(str){
-      return str.replace(/[&<>"']/g, (m)=>({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-      }[m]));
-    }
+    input.value='';
+    input.disabled=false;
+    input.type = (s.type==='date') ? 'date' : 'text';
+    input.inputMode = (s.type==='phone') ? 'numeric' : 'text';
 
-    diseaseInput.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter'){
-        e.preventDefault();
-        addDisease(diseaseInput.value);
-        diseaseInput.value = '';
+    if(s.type==='choice'){
+      botBubble(typeof s.ask==='function'?s.ask():s.ask, s.choices);
+      input.placeholder='กดเลือกด้านบน หรือพิมพ์ค่า...';
+    } else if(s.type==='disease'){
+      botBubble(typeof s.ask==='function'?s.ask():s.ask, [
+        {label:'ไม่มีโรคประจำตัว', value:'none', mint:true},
+        {label:'เสร็จแล้ว ไปต่อ', value:'done'}
+      ]);
+      renderDiseaseBubble();
+      input.placeholder='พิมพ์ชื่อโรค แล้วกด Enter';
+    } else if(s.type==='confirm'){
+      botBubble(typeof s.ask==='function'?s.ask():s.ask, [
+        {label:'ส่งข้อมูล', value:'send', mint:true},
+        {label:'แก้ไข (เริ่มใหม่)', value:'edit'}
+      ]);
+      input.disabled=true;
+      input.placeholder='เลือกปุ่มด้านบน';
+    } else {
+      botBubble(typeof s.ask==='function'?s.ask():s.ask);
+      input.placeholder = (s.type==='phone') ? 'เช่น 08x-xxx-xxxx' : 'พิมพ์คำตอบ...';
+    }
+    input.focus();
+  }
+
+  function sendAnswer(raw, fromQuick=false, displayLabel=null){
+    const s=steps[idx];
+    if(!s) return;
+    if(s.type==='confirm') return;
+
+    err.classList.remove('show');
+    let value = fromQuick ? raw : input.value;
+
+    if(s.type==='disease'){
+      if(fromQuick){
+        if(value==='none'){
+          state.diseases=[];
+          meBubble('ไม่มีโรคประจำตัว');
+          renderDiseaseBubble();
+          return;
+        }
+        if(value==='done'){
+          meBubble('เสร็จแล้ว');
+          idx++;
+          askCurrent();
+          return;
+        }
       }
-    });
+      const v=String(value||'').trim();
+      if(!v) return;
+      if(!state.diseases.includes(v)) state.diseases.push(v);
+      meBubble(v);
+      input.value='';
+      renderDiseaseBubble();
+      return;
+    }
 
-    noDiseaseChip.querySelector('button').addEventListener('click', ()=>{
-      noDiseaseChip.style.display = 'none';
-    });
+    let say = displayLabel || value;
+    if(s.type==='phone'){ say=formatPhone(value); value=say; }
 
-    setStep(1);
+    const ok=s.validate(value);
+    if(!ok){ err.textContent='กรุณากรอกคำตอบให้ถูกต้อง'; err.classList.add('show'); return; }
 
-    document.getElementById('helpLink').addEventListener('click', ()=>{
-      alert("วิธีกรอก:\n1) กรอกข้อมูลส่วนตัวให้ครบ\n2) หน้าสุขภาพ: พิมพ์โรคแล้วกด Enter เพื่อเพิ่มแท็ก\n3) เสร็จแล้วกด “ส่งข้อมูล”");
-    });
-  </script>
+    s.save(value);
+    meBubble(say);
+
+    idx++;
+    if(idx < steps.length) askCurrent();
+  }
+
+  btnSend.addEventListener('click',()=>sendAnswer(input.value));
+  input.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); sendAnswer(input.value); } });
+
+  chat.addEventListener('click',(e)=>{
+    const t=e.target;
+    if(!(t && t.dataset && t.dataset.choice)) return;
+
+    const s=steps[idx];
+    if(!s || s.type!=='confirm') return;
+
+    const v=t.dataset.choice;
+    if(v==='edit'){ meBubble('ขอแก้ไข'); resetAll(); return; }
+    if(v==='send'){
+      meBubble('ส่งข้อมูล');
+      botBubble('ส่งข้อมูลเรียบร้อย ✅<br><br><small style="color:#64748B">หมายเหตุ: นี่คือ UI ตัวอย่าง สามารถเชื่อม API จริงภายหลังได้</small>');
+      progressBar.style.width='100%';
+      stepText.textContent='เสร็จสิ้น';
+      input.disabled=true;
+      btnSend.disabled=true;
+      btnSend.style.opacity=.55;
+    }
+  });
+
+  btnReset.addEventListener('click', resetAll);
+
+  function resetAll(){
+    Object.keys(state).forEach(k => state[k] = Array.isArray(state[k]) ? [] : '');
+    chat.innerHTML='';
+    idx=0;
+    btnSend.disabled=false;
+    btnSend.style.opacity=1;
+    input.disabled=false;
+    input.type='text';
+    input.value='';
+    progressBar.style.width='0%';
+    stepText.textContent='เริ่มต้น';
+    sectionChip.textContent='เริ่มต้น';
+    sectionSub.textContent='ถาม-ตอบทีละข้อ (พิมพ์หรือกดปุ่ม)';
+    start();
+  }
+
+  function start(){
+    botBubble('สวัสดีค่ะ 👋\nวันนี้มีอาการอะไรให้ช่วยประเมินไหมคะ?');
+    askCurrent();
+  }
+
+  start();
+</script>
 </body>
 </html>
