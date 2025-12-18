@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สมัครใช้งาน | Concept-X Office</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue-900:#0B3C8A;
+      --blue-800:#0E4AA6;
+      --blue-700:#1463D6;
+      --blue-600:#1E7BF2;
+      --blue-500:#2F8CFF;
+      --sky-200:#D9ECFF;
+      --bg:#F6F8FC;
+      --card:#FFFFFF;
+      --text:#0F172A;
+      --muted:#64748B;
+      --border:#E2E8F0;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:"Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page{
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top:0;
+      z-index:10;
+      background: rgba(246,248,252,.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(226,232,240,.8);
+    }
+    .topbar-inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:12px;
+      background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+      display:grid;place-items:center;
+      box-shadow: 0 10px 18px rgba(30,123,242,.25);
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .brand-title{
+      line-height:1.1;
+    }
+    .brand-title b{ display:block; font-size:14px; }
+    .brand-title span{ display:block; font-size:12px; color:var(--muted); }
+
+    .step-meta{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:flex-end;
+      min-width: 220px;
+    }
+    .step-text{
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .progress{
+      width: 220px;
+      height: 10px;
+      background: #EAF2FF;
+      border-radius: 999px;
+      overflow:hidden;
+      border:1px solid rgba(20,99,214,.12);
+    }
+    .progress > div{
+      height:100%;
+      width: 50%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #A7F3D0, #60A5FA, #1D4ED8);
+      transition: width .25s ease;
+    }
+
+    /* Main */
+    .container{
+      width:100%;
+      max-width:1120px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+      display:grid;
+      gap:16px;
+    }
+
+    /* Hero / banner */
+    .hero{
+      background: linear-gradient(90deg, rgba(167,243,208,.9), rgba(96,165,250,.88), rgba(29,78,216,.95));
+      border-radius: 20px;
+      padding: 16px;
+      overflow:hidden;
+      position:relative;
+      box-shadow: var(--shadow);
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-80px; top:-80px;
+      width:220px; height:220px;
+      background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
+      transform: rotate(20deg);
+    }
+
+    .hero-card{
+      max-width: 540px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 18px;
+      padding: 14px 14px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .hero-icon{
+      width:34px;height:34px;border-radius:999px;
+      background: rgba(20,99,214,.12);
+      display:grid;place-items:center;
+      flex:0 0 auto;
+    }
+    .hero-icon svg{ width:18px;height:18px; }
+    .hero-card h4{
+      margin:0;
+      font-size:14px;
+      color: var(--blue-900);
+    }
+    .hero-card p{
+      margin:6px 0 0;
+      font-size:13px;
+      color: #0f172a;
+    }
+
+    /* Form card */
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-head{
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid var(--border);
+      gap:12px;
+    }
+    .card-head h3{
+      margin:0;
+      font-size:15px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .badge{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      background: rgba(30,123,242,.12);
+      color: var(--blue-800);
+      border: 1px solid rgba(30,123,242,.18);
+    }
+
+    .card-body{ padding: 16px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .field{ grid-column: span 12; }
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    .col-8{ grid-column: span 8; }
+
+    @media (max-width: 860px){
+      .progress{ width: 160px; }
+      .col-6, .col-4, .col-8{ grid-column: span 12; }
+      .brand{ min-width:auto; }
+      .step-meta{ min-width:auto; }
+    }
+
+    label{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:13px;
+      margin-bottom:7px;
+      color:#0f172a;
+    }
+    .req{ color:#ef4444; font-weight:700; }
+
+    .control{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size:14px;
+      outline:none;
+      transition: border .2s ease, box-shadow .2s ease;
+      background:#fff;
+    }
+    .control:focus{
+      border-color: rgba(30,123,242,.65);
+      box-shadow: 0 0 0 4px rgba(30,123,242,.12);
+    }
+    .hint{
+      margin-top:6px;
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    /* Radio pills */
+    .radio-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .radio{
+      flex:1 1 200px;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+      transition: border .2s ease, background .2s ease;
+      background:#fff;
+      min-width: 180px;
+    }
+    .radio input{ accent-color: var(--blue-700); }
+    .radio.active{
+      border-color: rgba(20,99,214,.55);
+      background: rgba(30,123,242,.08);
+    }
+
+    /* Chips */
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .chip{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(20,99,214,.10);
+      border:1px solid rgba(20,99,214,.18);
+      font-size: 13px;
+      color: var(--blue-900);
+    }
+    .chip button{
+      border:0;
+      background: transparent;
+      cursor:pointer;
+      color: var(--blue-900);
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 2px;
+    }
+    .chip-muted{
+      background: rgba(100,116,139,.10);
+      border:1px solid rgba(100,116,139,.18);
+      color:#334155;
+    }
+
+    /* Footer actions */
+    .actions{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(246,248,252,.65), rgba(246,248,252,1));
+    }
+    .btn{
+      border:0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-size: 14px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .05s ease, opacity .2s ease, box-shadow .2s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .btn-ghost{
+      background: transparent;
+      color: var(--muted);
+    }
+    .btn-ghost:hover{ background: rgba(100,116,139,.08); }
+
+    .btn-primary{
+      background: linear-gradient(90deg, var(--blue-700), var(--blue-600));
+      color:#fff;
+      box-shadow: 0 10px 18px rgba(20,99,214,.22);
+    }
+    .btn-primary:hover{ opacity:.95; }
+
+    .right{ margin-left:auto; }
+
+    /* Step visibility */
+    .step{ display:none; }
+    .step.active{ display:block; }
+
+    .divider-title{
+      margin: 6px 0 12px;
+      font-size: 13px;
+      color: #0f172a;
+      font-weight: 600;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .divider-title::after{
+      content:"";
+      height:1px;
+      background: var(--border);
+      flex:1;
+    }
+
+    .tiny-link{
+      font-size:12px;
+      color: var(--blue-800);
+      text-decoration:none;
+    }
+    .tiny-link:hover{ text-decoration:underline; }
+
+    .error{
+      display:none;
+      margin-top:8px;
+      color:#b91c1c;
+      font-size:12px;
+    }
+    .error.show{ display:block; }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo" aria-label="logo" style="background:#fff;">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIgAAABJCAYAAADmDm5DAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAABT9SURBVHgB7V0LWFRV1157nzMzwACCokVqWpnXpJKLiPmLXSzLC2mY4GCaT5Zd/FPRL8u+f7K7XOzP/yu1TAsQha80ssi+LlipyMXU1MrsibzfEhQYmDlz9v7XGRwC5sJBgVGb93nmmXP22bez99prr73W2vsAeOGFF1544YUXXnjhhRdeeOGFF160PcInpw+MMqTdDJwT8BA8VrAa9Ls9sQfl1giB8etlzjtRCjpoIRbcTy3dguuuqWiVRcJkV3EJgZODJ21YCirwzaqpPj4+FZOAMSkkWPr3jffmmxs+D0tKuU4HZLzAiQgXAAYQDBxmIWlQYDyxeE3yR+ABXFDl2xL9Y+Ovpow8hp01EWSpL/Ya4XhDyYXRcu5WLj8xShL050mLu4nL8eHWtXH8MNW8PXFiruwuX1/f8qdxYL8KSLV/ntWGYlCq/VmvUW/qfJhlHdY9ksFFgNSNYIu5Khr//t4EclVYkj4k2PwE5fwpTnhXhTBag8EdOEGEDws1bMpwScms+Qw5LOlusZzCq3Uuo3AghdlkQH1ulATan4XPmKGhNdalwEkkxtzDBTpJMJuroYWQRe01mP1rWFSAoPV/DzyES4JAwmLHd2PM/C6SxN1KH7rtRc6/xgjrsQMS8X8IqMC2/YR08BP5uEhrswRClDYRyNLi7LH7IxPyfnAWpzAzbjjGmoCXfyDTKag1Wd6yPxNq+sznnE+vqyv8KMh8NIhap2Uhd5Fqqyszd683nnTyuCw+PmcE8kDIzXXPzdoSHpdB+g+dMIBq6KdIFj2ajcyh9nRAUKdjG1eYcCryx5BbQCU0OBTemiYl44wwTk18zvhB2SoPG/bQxoMNw7dlx/VEAijB+laJIrs7cmLeL/ZnEUnpkwTOVyHR+IAqsBeKelUvAqPxomaitgQFD6JfzPgegih8pIo4EIos3/nMKYUwwFKjDeLAQtT+rDKtPGmpmIqd+62asggl14pa4b3/LL+zgz3sy3fGXkU4X08UuYjzRxsSx60JKUMIY2+rJw7IrjL3eOVSJg4FHuUgA4dP/AprcHt9AIFvCYcivJqKDR3iLA3O/8WEss85oxNwSuoPasHhOBB5xLJHeA2m34YvHqouHX9r0/5bnxreo0Dr4xP0PoZMlGU28zZD3jJ7lCFT0rvKjBXgC/RSlSWQHbXMfOePaxaUwyWOViGQ3uGjQ7QBflMZI5Wi1bJ+99b1J5tL02vUKJ1fjf+YhmHWk3vz9u3bZxk4LH44ygEF0NrgsF828eEr57AehMifI7EFqUiF8z8zItMIxPjJ+DPGJH68yP5wYOKrwT5U+xU25K2gCuRXsxlG7MqdcwQuA1y0kBo6erSfttJ3DTbQXQLlwDXi2LDYB1/EVQh3m7AWFPI81DhwAP72ARGFWs7bgPMS6E318G7Cgj8fWPtqx1k49bxHmm8DAeebhYzjegRIplzDltgf9I83an2I9m21xIENUoH6nCm7cudeFsSh4KI5yM13PNibybwUL/3hIoGdkIsj9WskrcexZgNtgRyOYjXXYufs5BTOMieUQxmjMqV+aspAeQezsWwZHxt2dGSfXakE+GxQh+21tXDPiGkbKmx3RiONOhDwvHKlLjmvZYxPK1kzby1cRrhoAgkNn+HXyb98J3bsjeeD9mCXpblLgyN3Phbcz20cjIRM6K0a36rnDuTnn4M2wNaceF8iW1ZhMzzoPiY/gVPToNum5x21h0RNTn0IueQKvNRCM8B3QV0fX1iUmfwKXGZoFRnkltj4W2ROZ2KfysDp0j3frvvJVdyoqCmdan1rd+OK5Bq3mXKe3rcLzG9rHQASSUciS9+DK4IlUG5l1rHDEjd+bw+KNKTFIOfZiA+DVRShEMg7+iOVjxcUGK1wmaHdVzEDR8SH43gqBPdz//FKOHldWUFBLbQDCjPH9UcJ4wvsyq5NHknIDWcMSfhotT0g3PByqAA+O/DyalWZA9l+UjwXW7ba2C7v0tpodz0IzhsK53ArGDLgq9uLOBREGz7exwh/GAnE1DBcIPzVTb+EfWC/D49/rQPlPhtAJXGgruQXXFonXK7EoaDdCQSFzZDm49A90M4YOmnDFyglJ4NNA25DzumTlleM5xVZ/eP/5S/4iIqlN1JllicJoY8UZcz7HS5jtDuBEEaaLROJyCNzdfSvg5aj4PkejvydXKiZee+sv0z4el3tbJwakwhRMS0TYLiye7ooc853cJnDo6r2Sw0EuUV5YO2TJoneGTNx0xl7eIQh7VFcer2gOh/G5pZkJ2fDFYBLzh/E07i3zvGnnnNEJaXejZzjZVSfqHEVQC06LLPqq1fAFQIvB3GD8KlL+3Km6Dp4JzXxOeGbBTOZW7rCaIIrBF4CcYGwpGS9IJk/RJnjWpVJfifU8sC23Dk1cAXhkpxiUDHVYt/T1kTsVKOPSQp8D6cVVdZinFmOyzKP25H57J9whaH99SBcPtNcHCpQ1Y5AbQBikv1fwE6PVxm/BgWPJ3dkz9ttD1i1KlatT8glj/bXgzD6BzQQAp2CwYO9Bo8KBA8gypA6HYWJp1UtZ0EheHi2JHNuvUNxYU5ceB9dh22bs0bfCFcA2p1ATP7iAeTJ7rkI2ml0PnojtLMpICppye1YpGLOb9YApwA1aCv9j1T+H5x3lt+RPfYaWYKVaLi8RUOE97d/dL8q4fZShgDtjDMHfjRfdd2AEXjZ2108bOTILj36+/uRLt9VVJS1ueIsetKSnoywj5FzdFaVgMO35yqtD5VuWmhToy9fPkPTSWfKoQSGKvdY/+7cyq7pPjD0k4KCsgt2bvkuJ/7aJ+70Na3YeMwjrokecTm8aUT8fYTDJ7atSs2CH0draAYjchElQquuEIjMuLa67D9S/0nBOkY2Y6f2VZMO5ZM9GsLv2Joxr95zblt23Cr8m9oof5vpCZYzzjfDBYASMhTTPomz3a8itw6NSNx4GtoZHlnFUI1PAbOYdxFVXunkamzkeYJSVQ6tCSunwksQGl6gY3QZlqGKODDeceBWw9aMZ2zEkZMTL3SXLclIDQlN64e3FIl7JqaaCRcAZsuPKPn0NhHxZrz5CtoZHtGD7P4io5pT+Cd4EoR/tgf6vywE9pmHnX6/ylRVjJNpRZnP7LIH9ODSGFzFvIy92CpLc8zr3/g3wvbjZC6pMx4W+QlVJeABeNSrPWzEgx+gYSwJ2h/FNYcrh3UccpcBbfKKd3o9J8XR+hsaCxfXXXNlO2VA3RNi4owlNdwjuy173GDs0O9JK3JiLNMKMjwUY/h4jXKft3y035gZn9SQ5nx82wjtQiB9xr4e0EFPb5KsugM/5M46VR8+dGyAVuM3AdoRhHFmoeTbgZ3HHyrTHBwHAmm0nBYsdHvhutk2j7hIQ9rz2ECLFHaDxDEbieNNaDDRKZ3XOVD8Gi8HQ+uiBmR21xBD3hbwMNpBBuGkQ1D6ei7D7aJW+gUto2+Ah4Fr2Lt/tznUEwe5RmLm+jYhSBVAqOL4867+aNW/oEnssY9uNG1eNTpJ4yN+hjmp2hOjEr6ckve/e//ee4c99Nl+8CDanIP0RLV1F2uACTw8nakFEsMhAkIKshoNUsOLWO2iarNuzL7cJ6pcpdm+5v4hnLAvcbpR5VnfgroUaXsfvi0iolQCD6FdOi3asCQN59YJyKfzuUZY7jKiVR6AS7p5OE7DgFwKBEV21xL5rt0NlrOusHVNXAIKu4p7YutyZQJLox/c8N+EwJUrgyiImvJKpzOn/KsO5M9yq2YPS0rR+zAYiQssZVtBFI4jRXHV7stxbJgTVk7uKs2a86Oa+DjaSeG68S/ixXPQikDCsDIZHouZvGEleACXNNuPSUrpYiFCT5QFuuEAClZ2l0A7gVFSWvLB3B9akuazN0fpOnTSTeSEt6o1WqD0TO3P5XkjjAWX3bYJL7zwwgsvvPDCiwvBZaGb8KJl2Pr+6K4oKNfvGxb0rCJ6Qv7hpvG+Mcb6+Fyvv46dd/uQqcjkA2f3NxSGvU7LVyC4RtOHajSb8fej8gOLrmjLmtGNDvzblDJS79Onw2rQiHvPx9stUHg6FmIb+Z14CeQKxNDE9V+LBNAQCZXKPWrYQikRN27JirO5VxiNsWJgN79ldcde1KkOOIPMLqctT5EmZ6Z5p5grGIVZY8ZxKig7/HyVe1Tm/cZF8gC1QgIamuY1cNj6SDaxqbdNz6tsmodbAhkSn97RClYH/0xWYzpXutH95iDleKYgqz5IErmNS1FR4n+GBFQcWOpekxofnyMcFI+GVForyvflGi1Nn0fGL75aTfnKCUAxu/Qh9vLtUOph3f/HmdLSFZKregeImmBm1Thtm/KqQ+UH8pe6eAcjDbsfQnSiX6Myia+fVFSzuQKaOetkSPxsXyuEdnD1XKn79uznFLW/arX7lrVxM7EyS+z+KkgSFcgtAoHUzx7fc0EzMmZirlNvPaeNcGti6n+JAnmDcFdnb/EjfqJwU8Hq2RUOj8JnaCL79llMCH8Ms2/s/s+5FWu4Upb5wtLsZKfucxGJr79LqTgdyfAnkGhc0bq5jayZUYY0HAiwt6el8GZXh8tETk59HMtZ6OokQ7QL5RVnJjs9LxVN/G9hOpceYFj2vuKsuQOcpk1MXUgoXVR3YKdDwmogQp5sNj9TmvvMwaaPFRMDmnB38maswkyyzC9ZtyAFWoDCteMeR0vA/0ITkwWW9R31Y/HR4/JOuErrYOOInvpqT1mCTGDQDantCGq3HUca51XV1ZLTvR9R/fo8iwXPQuKowk463vAZtloIPntUoESDt9OdpbdWn+2kDVCcwWk/rN2miMSUR0rWzPuyUT6EdyjWD8A8HAnk/F7aN2zFEVLmrAzKwKXKGhN1rhugfCfeOZzrQQhx7ZFPyNV1xMEPA6F/laF8rYEox16wBKrV6GNjYycUFDRWm3es9SM1utrTGK+uTzjDf9INU1Zg4vqBWFv5Z4stxp///PGykX3iRmHFRjcINskMZse4IQ4FDgRiqZZiRZ22O46UjVY///GlKx5VbWqONRpF0698MjYi9oFlXEnGgoIGj0l00ut9ORdLOZdH3zrqqc4/5C895TIzzrcph+FTIDkRk1JnlKxN/hBUsFY0uU/DhtBgnyTf1+vcEuMFH1RLMpAQi+x3TGZV+qOmPWqOkaJYdmHmnIZnvZMIQ+oj+C7LcdBFnwm+ryNAQSMLcUGdO0H9SmPw5NejORG3YUNu2J41ZxpcBEb2HqMIo3c2aT4/kcKL36yKHT9imuvDehwIxHzuVJDYWa/4yRS2hDhsKMP8SJ1AVJLZiDgU8MKMf/w02JB2hHEeUn7sVz2GuSQQ7NUXKbGdwJxORciOTEr7p/5QZUqzu6IZ6BVWRUHaYry4U4zTGn6mhQrCzyc7d1YOj6lqLiEjMCVycnq9QzYaGrGf+T3nb49ppOpm82gtFGaOewDJ4h1sfjvHVw4EtHvRjdLpgteULB9tiHh0o9OmdVjmir5BthGCgkyPln7IplJ7VLaz1vD41xw2Pfefnt5RIQ6FwQiB17sV2AijvChjzjKc4pQTCKuQ+F8ydQtcDM0AuZdtNHDQXA8XAa583oPzmfYfCj6Lupw6pfYoqXuR+zxj/yGFzEfuEYazTxmuHv7RrIDdSijMjBvJBfouNooyGJV3OsZlGI91qj+KkxAWJwXSN3Ny+jvdLObAQbS+wd9gVmcxkyQU2LqBIfVs0ziEkXIt+D73/ZrHGx0lXbpihRRlSN2CMXpSnSY/0pCqHCX11yg2s5uwA4Ow0zcPuurU0d+geRRnzPkkMiE9jlCegY3b7JmmqEH8FIXrB/A/bfDktAmMcIeVEOHkt6KsuQvdZsS4IoP9RRAcutZ09f8fFICri7OSX3ObFPgKHHnFDQrkAudHwEcs2rYyudm9ya2BkrXjB0lMzsJL26oIR3o1Y2zSUEPet4WZo4qBakOQOu48v9R9+Fprr5Oc732uqXO0A4EUZ8/ZO9iQPhslfVyJkFFOS6f8cJVoftbZIxnM8wTw7Yxs9S4s3HF3PIdCQUOn5mY6X4EIvv41Tuq0OTwhdaQgkEy8Dcc3kPyqwen0UXxD5QdRBwJuw7eehPxvvDPHNCQeN/tLmNkmqlIyyZnAg81Xhn9uCQSJI78oM3kDXAyYzsQFmV2IompL5phIibNP6gRjsK2gUKaMGzo5z/Yhg2hD/rlNH4yMC9D45WP+w2xiPyHzi9bFIYOH5xt6r7ksX3HWwbniJiY7TkNcFs+Urpu9w1XaIbPTfeVj0gBGaaOz0AXCcO713bc9a5bLg3Fvjn+pq1br29dqMe/+IffZRjLKEJyipBp5ENGKp4tXz94JrkFunfxKPxF0oZw7trEkmX/albvQ6XHYkVMXXw2SMMBZOltaWTq4a92zTh2JBycuvpEBDZVMVbt3bjBWwEUiKiFlCM7Z5agS+Lkl6b7PGdtHkMTu9nsmm4/HJG3c25Q7/LA+LshUQwahUF3Xxwy1P/0ObfGkD6wXXnjhhRdeeOHF3xiu9TsxDy2+AVoBkZPT7ohMTFkUHr5cAxcARUDlHvygsh1tvt+kbp+L+IRkqVnFJUu9dMwC9NLujHm2z4UOmpxiIFaruXTdgtym6SMNKRMJEQLk8nPZTRVMUYb0YVZJOh3oqz3W1HAYmbB4eHH2/M1N84tKWhzPWVq/4ixY1LSelhOHbpatVDlLXo2K5nw56cOVZXjTcFwu9EXD3bGAgGyH1XLEpNfHEip2Lc6as8zZh5ciE1LGcJHeHhGxQtnRL/WMNfoEBTX+Fp7W3z/WapYO7chdUAptiDZ3GFKMUKgdqdH4BPj7BHUIsv/8AfT2OCKBINOZP5wY/2wbYVCja5XkkA6Omj4O3YkoDK8GR8Mhp9TpSUHMSjqi0s1hids1SGf1Dwm9CRUdAdACUMqcloOqhC7Y86yy8z16hzQaUYcN/0fYlHlODW+yqRJVCVBRWlpn6gi9IdCvYdspP0XTTKmf+7PeWgFtzkHOG6Hcfu68lsAqDXHG2Qn3E41LjzOt/ufV8x30CrJenytWnu7oWxbjcPwk1wd85qwsiwiZmlrZ4b3zl84yD3349ewTep0FWgCzRvjSWbhoOfJajf5a3c7MZxw00bKv/6fa8mq+OyulFjJSHdIGnqX5FcG0/pz3bSvnKNrXphrYMvDCCy+88MILL7zwwou/I/4ftkc9QxWF51sAAAAASUVORK5CYIK22WOR/4I+dIOFXrBwtvjdLIv2zi9/CewmI3Xw71Kehg==" alt="Concept X Logo" style="width:28px;height:auto;" />
+          </div>
+          <div class="brand-title">
+            <b>Concept-X Office</b>
+            <span>สมัครใช้งานระบบบริการประชาชนสำหรับ รพ.สต.</span>
+          </div>
+        </div>
+
+        <div class="step-meta">
+          <div class="step-text"><span id="stepText">1 จาก 2</span></div>
+          <div class="progress" aria-label="progress"><div id="progressBar"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-card">
+          <div class="hero-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" fill="rgba(20,99,214,.15)"/>
+              <path d="M11 7h2v7h-2V7Zm0 8h2v2h-2v-2Z" fill="rgba(11,60,138,.85)"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Smart</h4>
+            <p>กรอกข้อมูลให้ครบถ้วน เพื่อช่วยประเมินความเสี่ยงและดูแลสุขภาพได้แม่นยำขึ้น</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="card">
+        <div class="card-head">
+          <h3>
+            <span class="badge" id="sectionBadge">ข้อมูลส่วนตัว</span>
+            <span id="sectionTitle">ระบุข้อมูลส่วนตัว</span>
+          </h3>
+          <a class="tiny-link" href="javascript:void(0)" id="helpLink">คู่มือการกรอก</a>
+        </div>
+
+        <form id="regForm" novalidate>
+          <div class="card-body">
+
+            <!-- STEP 1: PERSONAL -->
+            <section class="step active" id="step1">
+
+              <div class="grid">
+                <div class="field col-6">
+                  <label>ชื่อ <span class="req">*</span></label>
+                  <input class="control" name="firstName" placeholder="กรุณากรอกชื่อ" required />
+                  <div class="error" data-err="firstName">กรุณากรอกชื่อ</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>นามสกุล <span class="req">*</span></label>
+                  <input class="control" name="lastName" placeholder="กรุณากรอกนามสกุล" required />
+                  <div class="error" data-err="lastName">กรุณากรอกนามสกุล</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
+                  <input class="control" name="phone" inputmode="numeric" placeholder="เช่น 08x-xxx-xxxx" required />
+                  <div class="hint">แนะนำรูปแบบ: 0xx-xxx-xxxx</div>
+                  <div class="error" data-err="phone">กรุณากรอกเบอร์โทรศัพท์</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>เพศกำเนิด <span class="req">*</span></label>
+                  <div class="radio-row" role="radiogroup" aria-label="gender">
+                    <label class="radio" id="malePill">
+                      <input type="radio" name="gender" value="male" required />
+                      เพศชาย
+                    </label>
+                    <label class="radio" id="femalePill">
+                      <input type="radio" name="gender" value="female" required />
+                      เพศหญิง
+                    </label>
+                  </div>
+                  <div class="error" data-err="gender">กรุณาเลือกเพศ</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>วัน / เดือน / ปี เกิด <span class="req">*</span></label>
+                  <input class="control" type="date" name="birthDate" required />
+                  <div class="error" data-err="birthDate">กรุณาเลือกวัน/เดือน/ปี เกิด</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>กรุ๊ปเลือด <span class="req">*</span></label>
+                  <select class="control" name="blood" required>
+                    <option value="">เลือกกรุ๊ปเลือด</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>AB</option>
+                    <option>O</option>
+                    <option>ไม่ทราบ</option>
+                  </select>
+                  <div class="error" data-err="blood">กรุณาเลือกกรุ๊ปเลือด</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>น้ำหนัก (กก.) <span class="req">*</span></label>
+                  <input class="control" name="weight" inputmode="decimal" placeholder="ระบุน้ำหนัก" required />
+                  <div class="error" data-err="weight">กรุณากรอกน้ำหนัก</div>
+                </div>
+
+                <div class="field col-6">
+                  <label>ส่วนสูง (ซม.) <span class="req">*</span></label>
+                  <input class="control" name="height" inputmode="decimal" placeholder="ระบุส่วนสูง" required />
+                  <div class="error" data-err="height">กรุณากรอกส่วนสูง</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- STEP 2: HEALTH -->
+            <section class="step" id="step2">
+
+              <div class="divider-title">ข้อมูลสุขภาพ</div>
+
+              <div class="grid">
+                <div class="field col-8">
+                  <label>โรคประจำตัว (ถ้ามี)</label>
+                  <input class="control" id="diseaseInput" placeholder="พิมพ์ชื่อโรค แล้วกด Enter เช่น เบาหวาน, ความดัน" />
+                  <div class="hint">กด Enter เพื่อเพิ่มเป็นแท็ก (รองรับหลายรายการ)</div>
+
+                  <div class="chips" id="diseaseChips">
+                    <div class="chip chip-muted" id="noDiseaseChip">
+                      ไม่มีโรคประจำตัว
+                      <button type="button" title="ลบ" aria-label="remove">×</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field col-4">
+                  <label>วิธีกรอก</label>
+                  <div class="hint" style="margin-top:0">
+                    - ถ้าไม่มีโรค: คง “ไม่มีโรคประจำตัว” ไว้ได้<br/>
+                    - ถ้ามีโรค: เพิ่มโรค แล้ว “ไม่มีโรคประจำตัว” จะถูกเอาออกอัตโนมัติ
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>ยาที่ใช้อยู่ (ถ้ามี)</label>
+                  <input class="control" name="meds" maxlength="200"
+                         placeholder="ระบุยาที่ใช้อยู่ เช่น ยาความดัน, ยาลดไขมัน" />
+                  <div class="hint">ระบุได้ไม่เกิน 200 ตัวอักษร</div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-ghost" type="button" id="btnBack">ย้อนกลับ</button>
+            <button class="btn btn-primary right" type="button" id="btnNext">
+              ต่อไป
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const stepText = document.getElementById('stepText');
+    const progressBar = document.getElementById('progressBar');
+    const sectionBadge = document.getElementById('sectionBadge');
+    const sectionTitle = document.getElementById('sectionTitle');
+
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+
+    const btnBack = document.getElementById('btnBack');
+    const btnNext = document.getElementById('btnNext');
+
+    const malePill = document.getElementById('malePill');
+    const femalePill = document.getElementById('femalePill');
+
+    const form = document.getElementById('regForm');
+
+    let currentStep = 1;
+
+    function setStep(step){
+      currentStep = step;
+
+      step1.classList.toggle('active', step === 1);
+      step2.classList.toggle('active', step === 2);
+
+      stepText.textContent = step + " จาก 2";
+      progressBar.style.width = (step === 1 ? "50%" : "100%");
+
+      if(step === 1){
+        sectionBadge.textContent = "ข้อมูลส่วนตัว";
+        sectionTitle.textContent = "ระบุข้อมูลส่วนตัว";
+        btnBack.textContent = "ย้อนกลับ";
+        btnNext.innerHTML = 'ต่อไป <span aria-hidden="true">→</span>';
+      }else{
+        sectionBadge.textContent = "ข้อมูลสุขภาพ";
+        sectionTitle.textContent = "ระบุข้อมูลสุขภาพ";
+        btnBack.textContent = "ย้อนกลับ";
+        btnNext.innerHTML = 'ส่งข้อมูล <span aria-hidden="true">✓</span>';
+      }
+    }
+
+    function showError(name, show){
+      const el = document.querySelector(`[data-err="${name}"]`);
+      if(!el) return;
+      el.classList.toggle('show', !!show);
+    }
+
+    function validateStep1(){
+      let ok = true;
+      const firstName = form.elements['firstName'].value.trim();
+      const lastName = form.elements['lastName'].value.trim();
+      const phone = form.elements['phone'].value.trim();
+      const acknowledgeGender = form.elements['gender'].value;
+      const birthDate = form.elements['birthDate'].value;
+      const blood = form.elements['blood'].value;
+      const weight = form.elements['weight'].value.trim();
+      const height = form.elements['height'].value.trim();
+
+      showError('firstName', !firstName); ok = ok && !!firstName;
+      showError('lastName', !lastName); ok = ok && !!lastName;
+      showError('phone', !phone); ok = ok && !!phone;
+      showError('gender', !acknowledgeGender); ok = ok && !!acknowledgeGender;
+      showError('birthDate', !birthDate); ok = ok && !!birthDate;
+      showError('blood', !blood); ok = ok && !!blood;
+      showError('weight', !weight); ok = ok && !!weight;
+      showError('height', !height); ok = ok && !!height;
+
+      return ok;
+    }
+
+    // Gender pill highlight
+    form.addEventListener('change', (e)=>{
+      if(e.target.name === 'gender'){
+        malePill.classList.toggle('active', e.target.value === 'male');
+        femalePill.classList.toggle('active', e.target.value === 'female');
+        showError('gender', false);
+      }
+    });
+
+    // Phone formatting simple
+    form.elements['phone'].addEventListener('input', (e)=>{
+      const raw = e.target.value.replace(/\D/g,'').slice(0,10);
+      let out = raw;
+      if(raw.length >= 4) out = raw.slice(0,3) + '-' + raw.slice(3);
+      if(raw.length >= 7) out = raw.slice(0,3) + '-' + raw.slice(3,6) + '-' + raw.slice(6);
+      e.target.value = out;
+      if(out.trim()) showError('phone', false);
+    });
+
+    // Step buttons
+    btnBack.addEventListener('click', ()=>{
+      if(currentStep === 1){
+        alert('ย้อนกลับหน้าก่อนหน้า (ปรับได้ตามระบบจริง)');
+      }else{
+        setStep(1);
+      }
+    });
+
+    btnNext.addEventListener('click', ()=>{
+      if(currentStep === 1){
+        if(validateStep1()){
+          setStep(2);
+        }
+      }else{
+        const payload = Object.fromEntries(new FormData(form).entries());
+        payload.diseases = getDiseases();
+        alert("ส่งข้อมูลเรียบร้อย (ตัวอย่าง)\n\n" + JSON.stringify(payload, null, 2));
+      }
+    });
+
+    // ===== Disease chips =====
+    const diseaseInput = document.getElementById('diseaseInput');
+    const diseaseChips = document.getElementById('diseaseChips');
+    const noDiseaseChip = document.getElementById('noDiseaseChip');
+    const diseases = new Set();
+
+    function renderNoDisease(){
+      const hasAny = diseases.size > 0;
+      noDiseaseChip.style.display = hasAny ? 'none' : 'flex';
+    }
+
+    function addDisease(name){
+      const v = (name || '').trim();
+      if(!v) return;
+      diseases.add(v);
+      renderNoDisease();
+
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.dataset.value = v;
+      chip.innerHTML = `${escapeHtml(v)} <button type="button" aria-label="remove">×</button>`;
+      chip.querySelector('button').addEventListener('click', ()=>{
+        diseases.delete(v);
+        chip.remove();
+        renderNoDisease();
+      });
+      diseaseChips.appendChild(chip);
+    }
+
+    function getDiseases(){
+      return Array.from(diseases);
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, (m)=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+      }[m]));
+    }
+
+    diseaseInput.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        addDisease(diseaseInput.value);
+        diseaseInput.value = '';
+      }
+    });
+
+    noDiseaseChip.querySelector('button').addEventListener('click', ()=>{
+      noDiseaseChip.style.display = 'none';
+    });
+
+    setStep(1);
+
+    document.getElementById('helpLink').addEventListener('click', ()=>{
+      alert("วิธีกรอก:\n1) กรอกข้อมูลส่วนตัวให้ครบ\n2) หน้าสุขภาพ: พิมพ์โรคแล้วกด Enter เพื่อเพิ่มแท็ก\n3) เสร็จแล้วกด “ส่งข้อมูล”");
+    });
+  </script>
+</body>
+</html>
